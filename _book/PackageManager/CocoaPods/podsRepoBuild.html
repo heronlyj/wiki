@@ -1,0 +1,444 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>CocoaPods 私有公有库的搭建 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../../iOS/" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    PackageManager
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Cocoapods
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1.1" data-path="podsRepoBuild.html">
+            
+                <a href="podsRepoBuild.html">
+            
+                    
+                    CocoaPods 私有公有库的搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../iOS/">
+            
+                <a href="../../iOS/">
+            
+                    
+                    iOS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../iOS/GCD/">
+            
+                <a href="../../iOS/GCD/">
+            
+                    
+                    GCD
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../../iOS/GCD/typelist.html">
+            
+                <a href="../../iOS/GCD/typelist.html">
+            
+                    
+                    GCD 基础使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >CocoaPods 私有公有库的搭建</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="cocoapods-&#x79C1;&#x6709;&#x516C;&#x6709;&#x5E93;&#x7684;&#x642D;&#x5EFA;">CocoaPods &#x79C1;&#x6709;&#x516C;&#x6709;&#x5E93;&#x7684;&#x642D;&#x5EFA;</h1>
+<h2 id="&#x524D;&#x671F;&#x51C6;&#x5907;">&#x524D;&#x671F;&#x51C6;&#x5907;</h2>
+<h3 id="&#x7B2C;&#x4E00;&#x6B65;&#x9700;&#x8981;&#x6CE8;&#x518C;&#x4E00;&#x4E2A;-cocoapods-&#x8D26;&#x53F7;">&#x7B2C;&#x4E00;&#x6B65;&#x9700;&#x8981;&#x6CE8;&#x518C;&#x4E00;&#x4E2A; cocoapods &#x8D26;&#x53F7;</h3>
+<p>&#x547D;&#x4EE4;&#x4E3A;</p>
+<pre><code>pod trunk register &#x90AE;&#x7BB1; &apos;&#x6635;&#x79F0;&apos; --description=&apos;&#x8BBE;&#x5907;&#x4FE1;&#x606F;&apos;
+</code></pre><p>&#x4F8B;&#x5982;:</p>
+<pre><code>pod trunk register heronlyj@gmail.com &apos;EugeneLi&apos; --description=&apos;My MacBookPro13&apos;
+</code></pre><p>&#x90AE;&#x7BB1;&#x4F1A;&#x53D7;&#x5230;&#x90AE;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x9A8C;&#x8BC1;&#x3002;&#x7136;&#x540E;&#x56DE;&#x6765;&#x68C0;&#x67E5;&#x81EA;&#x5DF1;&#x662F;&#x5426;&#x6CE8;&#x518C;&#x6210;&#x529F;</p>
+<pre><code>pod trunk me
+</code></pre><p>&#x8D26;&#x53F7;&#x8DDF;&#x8BBE;&#x5907;&#x662F;&#x7ED1;&#x5B9A;&#x7684;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x767B;&#x5F55;&#x8FD9;&#x4E00;&#x8BF4;&#x6CD5;&#xFF0C;&#x56E0;&#x6B64;&#x5982;&#x679C;&#x4F60;&#x5207;&#x6362;&#x8BBE;&#x5907;&#x4E4B;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x518D;&#x6B21;&#x6CE8;&#x518C;&#x4E00;&#x6B21;&#xFF0C;&#x53EA;&#x9700; description &#x53EF;&#x4EE5;&#x63CF;&#x8FF0;&#x4E00;&#x4E0B;&#x4F60;&#x5F53;&#x524D;&#x7684;&#x8BBE;&#x5907;&#x4FE1;&#x606F;&#xFF0C;&#x6635;&#x79F0;&#x5C31;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#x5199;&#x4E86;</p>
+<h3 id="&#x4EE3;&#x7801;">&#x4EE3;&#x7801;</h3>
+<p>&#x8FD9;&#x91CC;&#x6709;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x5DF2;&#x7ECF;&#x5199;&#x597D;&#x4E86;&#x4EE3;&#x7801;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x8FD8;&#x6CA1;&#x6709;</p>
+<h4 id="&#x5DF2;&#x7ECF;&#x5199;&#x597D;&#x4EE3;&#x7801;&#x7684;">&#x5DF2;&#x7ECF;&#x5199;&#x597D;&#x4EE3;&#x7801;&#x7684;</h4>
+<p>&#x76F4;&#x63A5;&#x5728;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x6267;&#x884C;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#xFF0C; <code>QuickBuild</code> &#x5C31;&#x662F;&#x8BA9;&#x522B;&#x4EBA;&#x770B;&#x5230;&#x7684;&#x5F00;&#x6E90;&#x9879;&#x76EE;&#x540D;&#x79F0;</p>
+<pre><code>pod spec create &apos;QuickBuild&apos;
+</code></pre><h4 id="&#x5982;&#x679C;&#x8FD8;&#x6CA1;&#x6709;&#x521B;&#x5EFA;&#x597D;&#x9879;&#x76EE;&#x7684;">&#x5982;&#x679C;&#x8FD8;&#x6CA1;&#x6709;&#x521B;&#x5EFA;&#x597D;&#x9879;&#x76EE;&#x7684;</h4>
+<p>&#x76F4;&#x63A5;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;</p>
+<pre><code>pod lib create &apos;QuickBuild&apos;
+</code></pre><p>&#x8FD0;&#x884C;&#x5B8C;&#x8FD9;&#x4E2A;&#x76EE;&#x5F55;&#x540E;&#xFF0C;<code>Cocoapods</code> &#x4F1A;&#x81EA;&#x52A8;&#x5E2E;&#x4F60;&#x4EA7;&#x751F;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x4E00;&#x90E8;&#x5206;&#x57FA;&#x7840;&#x5185;&#x5BB9;&#x7684; <code>Podspec</code> &#x6587;&#x4EF6;&#xFF0C;&#x901A;&#x8FC7;&#x5BF9;&#x91CC;&#x9762;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x5FC5;&#x8981;&#x7684;&#x4FEE;&#x6539;&#x5373;&#x53EF;</p>
+<h3 id="podsepc-&#x6587;&#x4EF6;-&#xFF08;podspec&#xFF09;">Podsepc &#x6587;&#x4EF6; &#xFF08;*.podspec&#xFF09;</h3>
+<p>&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x662F;&#x544A;&#x8BC9; Cocoapods &#x4F60;&#x8FD9;&#x4E2A;&#x5E93;&#x7684;&#x4E00;&#x4E9B;&#x57FA;&#x672C;&#x4FE1;&#x606F;&#xFF0C;&#x5305;&#x62EC;&#x4F60;&#x7684;&#x7248;&#x672C;&#x53F7;&#x3001;&#x83B7;&#x53D6;&#x7684;&#x5730;&#x5740;&#x3001;&#x54EA;&#x4E9B;&#x6587;&#x4EF6;&#x662F;&#x5E0C;&#x671B;&#x88AB;&#x5305;&#x542B;&#x8FDB;&#x6765;&#x7684;&#x7B49;&#x7B49;</p>
+<pre><code>Pod::Spec.new do |s|  
+    s.name         = &quot;QuickBuild&quot;
+    s.version      = &quot;1.0&quot;
+    s.summary      = &quot;A custom framework with base component.&quot;
+    s.homepage     = &quot;https://github.com/heronlyj/QuickBuild&quot;
+    s.license      = { :type =&gt; &quot;MIT&quot;, :file =&gt; &apos;LICENSE.md&apos; }
+    s.author       = { &quot;EugeneLi&quot; =&gt; &quot;heronlyj@gmail.com&quot; }
+    s.platform     = :ios, &quot;8.0&quot;
+    s.source       = { :git =&gt; &quot;https://github.com/heronlyj/QuickBuild.git&quot;, :tag =&gt; s.version}
+    s.frameworks   = &apos;UIKit&apos;
+    s.source_files = &quot;QuickBuild/**/*.{h,m,swift}&quot;
+    s.resource     = &quot;QuickBuild/Resources/**&quot;
+    s.requires_arc = true
+end
+
+s.subspec &apos;Security&apos; do |ss|  
+    ss.source_files = &apos;AFNetworking/AFSecurityPolicy.{h,m}&apos;
+    ss.public_header_files = &apos;AFNetworking/AFSecurityPolicy.h&apos;
+    ss.frameworks = &apos;Security&apos;
+end
+</code></pre><p>&#x5728; Podspec &#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x5F88;&#x7ECF;&#x5E38;&#x770B;&#x5230; do |&#x540D;&#x5B57;| &#x7684;&#x5F62;&#x5F0F;&#xFF0C;&#x8FD9;&#x4E2A;&#x6709;&#x70B9;&#x7C7B;&#x4F3C;&#x4E8E;&#x5728;&#x5BF9;&#x5E94; end &#x4E4B;&#x524D;&#x58F0;&#x660E;&#x4E86;&#x4E00;&#x4E2A; local &#x7684;&#x53C2;&#x6570;&#x4E00;&#x6837;&#x3002;&#x9664;&#x4E86;&#x4E0A;&#x95EE;&#x6240;&#x793A;&#x7684; Pod::Spec.new do |s| &#x7684;&#x60C5;&#x51B5;&#x5916;&#xFF0C;&#x8FD8;&#x6709;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x5728; s.subspec &apos;SubModule&apos; do |sm| &#x7684;&#x5F62;&#x5F0F;&#xFF0C;&#x540C;&#x6837; sm &#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x4FEE;&#x6539;&#x6210;&#x81EA;&#x5DF1;&#x60F3;&#x8981;&#x7684;&#x540D;&#x5B57;.</p>
+<p><code>s.subspec &apos;Security&apos; do |ss|</code> &#x5C31;&#x662F;&#x58F0;&#x660E;&#x7684;&#x5B50;&#x6A21;&#x5757;, &#x5BF9;&#x5E94;&#x7684;&#x610F;&#x601D;&#x662F; <code>&#x7236;&#x8282;&#x70B9;&#x540D;.subspec &apos;&#x5B50;&#x6A21;&#x5757;&#x540D;&apos; do |&#x5B50;&#x8282;&#x70B9;&#x540D;|</code></p>
+<h3 id="&#x9A8C;&#x8BC1;&#x9519;&#x8BEF;">&#x9A8C;&#x8BC1;&#x9519;&#x8BEF;</h3>
+<pre><code>pod lib lint QuickBuild.podspec --verbose --allow-warnings
+</code></pre><p>&#x8FD9;&#x6761;&#x547D;&#x4EE4;&#x662F;&#x7528;&#x6765;&#x9A8C;&#x8BC1;&#x4F60;&#x7684;Podspec&#x6587;&#x4EF6;&#x662F;&#x5426;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x5E76;&#x4E14;&#x4EE3;&#x7801;&#x91CC;&#x9762;&#x662F;&#x5426;&#x6709;&#x95EE;&#x9898;&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x540E;&#x9762;&#x53EF;&#x4EE5;&#x624D;&#x53C2;&#x6570;, &#x4E0B;&#x9762;&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x6709;&#x54EA;&#x4E9B;&#x53C2;&#x6570;</p>
+<pre><code>pod lib lint --help
+</code></pre><p><code>--verbose</code> &#x8FD9;&#x6761;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x8F93;&#x51FA;&#x6240;&#x6709;&#x7684;&#x6D88;&#x606F;&#x4FE1;&#x606F;
+<code>--allow-warnings</code> &#x662F;&#x5426;&#x5141;&#x8BB8;&#x8B66;&#x544A;&#xFF0C;&#x5728;&#x7528;&#x5230;&#x7B2C;&#x4E09;&#x65B9;&#x6846;&#x67B6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6709;&#x7684;&#x65F6;&#x5019;&#x662F;&#x81EA;&#x5E26;&#x4F1A;&#x6709;warmings&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x7528;&#x8FD9;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x5C4F;&#x853D;&#x8B66;&#x544A;</p>
+<h3 id="&#x7ED9;&#x9879;&#x76EE;&#x6253;-tag">&#x7ED9;&#x9879;&#x76EE;&#x6253; tag</h3>
+<p>&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x7528; git &#x547D;&#x4EE4;&#x7ED9;&#x81EA;&#x5DF1;&#x7684;&#x9879;&#x76EE;&#x6253; tag &#x4E86;</p>
+<pre><code>git tag -a v1.0.0 -m &quot;version 1.0.0 release&quot;
+</code></pre><h3 id="&#x4E0A;&#x4F20;">&#x4E0A;&#x4F20;</h3>
+<p>&#x6700;&#x540E;&#x4E00;&#x6B65;&#x4E0A;&#x4F20;&#x5230; cocoapods &#x4ED3;&#x5E93;</p>
+<pre><code>pod trunk push QuickBuild.podspec
+</code></pre><p>&#x4E4B;&#x540E;&#x53EF;&#x4EE5;&#x9A8C;&#x8BC1;&#x4E00;&#x4E0B;</p>
+<pre><code>pod search QuickBuild
+</code></pre><p>&#x5982;&#x679C;&#x662F;&#x591A;&#x4EBA;&#x7EF4;&#x62A4;, &#x5982;&#x4E0B;&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x5C0F;&#x7EC4;&#x4EBA;&#x5458;</p>
+<pre><code>pod trunk add-owner ARAnalytics kyle@cocoapods.org
+pod trunk add-owner &apos;&#x9879;&#x76EE;&#x540D;&apos; &apos;&#x90AE;&#x7BB1;&apos;
+</code></pre><h2 id="&#x79C1;&#x6709;&#x4ED3;&#x5E93;">&#x79C1;&#x6709;&#x4ED3;&#x5E93;</h2>
+<p>&#x4E0A;&#x9762;&#x7684;&#x6B65;&#x9AA4;&#x662F;&#x5C06;&#x5F00;&#x6E90;&#x5E93;&#x5171;&#x4EAB;&#x5230; cocoapods &#x7684;&#x516C;&#x5171;&#x4ED3;&#x5E93;&#xFF0C;&#x4F46;&#x662F;&#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4F7F;&#x7528; cocoapods &#x7ED9;&#x81EA;&#x5DF1;&#x7684;&#x79C1;&#x6709;&#x5E93;&#x505A;&#x6A21;&#x5757;&#x5316;&#x7BA1;&#x7406;</p>
+<h3 id="&#x521B;&#x5EFA;&#x79C1;&#x6709;&#x4ED3;&#x5E93;">&#x521B;&#x5EFA;&#x79C1;&#x6709;&#x4ED3;&#x5E93;</h3>
+<p>&#x79C1;&#x6709;&#x4ED3;&#x5E93;&#x4E00;&#x822C;&#x662F; github &#x79C1;&#x6709;&#x4ED3;&#x5E93;&#xFF0C;cording &#x79C1;&#x6709;&#x4ED3;&#x5E93;, &#x6216;&#x8005;&#x5185;&#x7F51;&#x7684; Gitlab &#x4ED3;&#x5E93;&#x3002;</p>
+<p>&#x683C;&#x5F0F;</p>
+<pre><code>pod repo add &apos;&#x4ED3;&#x5E93;&#x540D;&apos; &apos;&#x4ED3;&#x5E93;&#x5730;&#x5740;&apos;
+</code></pre><p>&#x4F8B;&#x5982;:</p>
+<pre><code>pod repo add &apos;eit&apos; &apos;git@192.168.1.254:iOS/podsRepo.git&apos;
+</code></pre><p>&#x65B0;&#x5EFA;&#x7684;&#x4ED3;&#x5E93;&#x5728; <code>~/.cocoapods/repos</code> &#x53EF;&#x4EE5;&#x770B;&#x5230;&#x591A;&#x4E86;&#x4E00;&#x4E2A; <code>eit</code> &#x6587;&#x4EF6;&#x5939;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x6B65;&#x9AA4;&#x8DDF;&#x5F00;&#x6E90;&#x4ED3;&#x5E93;&#x7C7B;&#x4F3C;&#xFF0C;&#x914D;&#x7F6E;&#x597D;&#x79C1;&#x6709;&#x4ED3;&#x5E93;&#x5BF9;&#x5E94;&#x7684; Podsepc &#x6587;&#x4EF6;&#xFF0C;&#x7F16;&#x5199;&#x4EE3;&#x7801;&#xFF0C;&#x9A8C;&#x8BC1;&#x6B63;&#x786E;&#x6027;</p>
+<p>&#x6700;&#x540E;&#x4E0A;&#x4F20;&#x8FD9;&#x4E00;&#x6B65;&#x9AA4;&#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x5C06;</p>
+<pre><code>pod trunk push &#x9879;&#x76EE;&#x540D;.podspec
+</code></pre><p>&#x66F4;&#x6362;&#x4E3A;</p>
+<pre><code>pod repo push &apos;&#x79C1;&#x6709;&#x4ED3;&#x5E93;&#x540D;&apos; &#x9879;&#x76EE;&#x540D;.podspec
+//
+pod repo push &apos;eit&apos; Quickbuild.podspec
+</code></pre><h3 id="&#x4F7F;&#x7528;">&#x4F7F;&#x7528;</h3>
+<p>&#x4F7F;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5728;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x7684; PodFile &#x6587;&#x4EF6;&#x5185;&#xFF0C;&#x9996;&#x5148;&#x8981;&#x58F0;&#x660E;&#x4ED3;&#x5E93;&#x5730;&#x5740;</p>
+<pre><code># &#x516C;&#x5171;&#x4ED3;&#x5E93;&#x5730;&#x5740;
+source &apos;https://github.com/CocoaPods/Specs.git&apos;
+
+# &#x79C1;&#x6709;&#x4ED3;&#x5E93;&#x5730;&#x5740; 
+source &apos;http://192.168.1.254:8800/iOS/podsRepo.git&apos;
+</code></pre><p>&#x4EE5;&#x540E;&#x7684;&#x5C31;&#x90FD;&#x4E00;&#x6837;&#x4E86;</p>
+<h3 id="&#x5F00;&#x53D1;&#x6A21;&#x5F0F;">&#x5F00;&#x53D1;&#x6A21;&#x5F0F;</h3>
+<p>&#x5982;&#x679C;&#x72EC;&#x7ACB;&#x7684;&#x6A21;&#x5757;&#x5904;&#x4E8E;&#x5F00;&#x53D1;&#x9636;&#x6BB5;&#xFF0C;&#x4EE3;&#x7801;&#x9891;&#x7E41;&#x66F4;&#x65B0;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x6BCF;&#x6B21; pod update &#x663E;&#x7136;&#x662F;&#x4E0D;&#x73B0;&#x5B9E;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5F00;&#x53D1;&#x6A21;&#x5F0F;&#xFF0C;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x672C;&#x5730;&#x4EE3;&#x7801;&#xFF0C;&#x65B9;&#x5F0F;&#x662F;&#x5728; <code>Podfile</code> &#x4E2D;&#x6309;&#x8DEF;&#x5F84;&#x540D;&#x6765;&#x7533;&#x660E;</p>
+<pre><code>pod &apos;&#x5E93;&#x540D;&apos;, :path =&gt; &apos;&#x672C;&#x5730;&#x8DEF;&#x5F84;&apos;
+</code></pre><p>&#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x5982;&#x679C;&#x4FEE;&#x6539;&#x4E86;&#x76EE;&#x5F55;&#x7ED3;&#x6784;&#xFF08;&#x6DFB;&#x52A0;&#x3001;&#x5220;&#x9664;&#x6216;&#x8005;&#x79FB;&#x52A8;&#x6587;&#x4EF6;&#x6587;&#x4EF6;&#xFF09;&#x6216;&#x8005;&#x662F;&#x4FEE;&#x6539;&#x4E86; Podspec &#x6587;&#x4EF6;&#x7684;&#x914D;&#x7F6E;&#x7684;&#x8BDD;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x8FD0;&#x884C;&#x4E00;&#x4E0B; pod update &#x7684;&#x547D;&#x4EE4;&#x3002;&#x666E;&#x901A;&#x4FEE;&#x6539;&#x4EE3;&#x7801;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x5C31;&#x4E0D;&#x9700;&#x8981;&#x8FD0;&#x884C; pod update &#x547D;&#x4EE4;&#x548C;&#x6253; tag &#x4E86;&#x3002;</p>
+<pre><code>pod &apos;QuickBuild&apos;, :path =&gt; &apos;~/workspace/QuickBuild&apos;
+</code></pre><h3 id="&#x6700;&#x540E;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x5730;&#x65B9;">&#x6700;&#x540E;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x5730;&#x65B9;</h3>
+<p>&#x666E;&#x901A;&#x4F7F;&#x7528;&#x79C1;&#x6709;&#x5E93;&#xFF0C;&#x76F4;&#x63A5;&#x5728; <code>Podfile</code> &#x4E2D;&#x589E;&#x52A0;&#x4E00;&#x4E2A; source &#x58F0;&#x660E;&#x5373;&#x53EF;</p>
+<pre><code># &#x516C;&#x5171;&#x4ED3;&#x5E93;&#x5730;&#x5740;
+source &apos;https://github.com/CocoaPods/Specs.git&apos;
+
+# &#x79C1;&#x6709;&#x4ED3;&#x5E93;&#x5730;&#x5740; 
+source &apos;http://192.168.1.254:8800/iOS/podsRepo.git&apos;
+</code></pre><p>&#x5728;&#x79C1;&#x6709;&#x5E93;&#x4E2D;&#x5F15;&#x7528;&#x79C1;&#x6709;&#x5E93;&#xFF0C;&#x5373;&#x5728;Podspec&#x6587;&#x4EF6;&#x4E2D;&#x4F9D;&#x8D56; (dependency) &#x79C1;&#x6709;&#x5E93; &#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x5C31;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#x4E00;&#x70B9;&#xFF0C;&#x56E0;&#x4E3A;&#x6BD5;&#x7ADF;Podspec&#x6587;&#x4EF6;&#x4E2D;&#x5E76;&#x6CA1;&#x6709;&#x6307;&#x660E;&#x79C1;&#x6709;&#x4ED3;&#x5E93;&#x5730;&#x5740;&#x7684;&#x5730;&#x65B9;&#x3002;&#x90A3;&#x4E48;&#x80AF;&#x5B9A;&#x5C31;&#x4E0D;&#x5728; Podspec &#x6587;&#x4EF6;&#x91CC;&#x9762;&#x6307;&#x660E;&#x79C1;&#x6709;&#x4ED3;&#x5E93;&#x7684;&#x5730;&#x65B9;&#x3002;&#x800C;&#x662F;&#x5728;&#x9A8C;&#x8BC1;&#x548C;&#x4E0A;&#x4F20;&#x79C1;&#x6709;&#x5E93;&#x7684;&#x65F6;&#x5019;&#x8FDB;&#x884C;&#x6307;&#x660E;&#x3002;&#x5373;&#x5728;&#x4E0B;&#x9762;&#x8FD9;&#x4E24;&#x6761;&#x547D;&#x4EE4;&#x4E2D;&#x8FDB;&#x884C;&#x6307;&#x660E;&#xFF1A;</p>
+<pre><code>pod lib lint &#x9879;&#x76EE;&#x540D;.podspec --sources=https://github.com/CocoaPods/Specs.git,192.168.0.100:Plutoy/Specs.git
+</code></pre><p>&#x4EE5;&#x53CA;</p>
+<pre><code>pod repo push --source=https://github.com/CocoaPods/Specs.git,192.168.0.100:Plutoy/Specs.git,
+</code></pre><p>&#x8981;&#x4E0D;&#x7136;&#x4F60;&#x5728;&#x68C0;&#x9A8C;&#x9879;&#x76EE;&#x4EE5;&#x53CA;&#x63D0;&#x4EA4;&#x9879;&#x76EE;&#x8FC7;&#x7A0B;&#x4E2D;&#x5C31;&#x4F1A;&#x51FA;&#x73B0;Error&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x8FD9;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x8FD8;&#x662F;&#x6709;&#x70B9;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x7B2C;&#x4E00;&#x79CD;&#x60C5;&#x51B5;&#x662F;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x5F00;&#x53D1;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x800C;&#x7B2C;&#x4E8C;&#x79CD;&#x60C5;&#x51B5;&#x4E0D;&#x80FD;&#x91C7;&#x7528;&#x5F00;&#x53D1;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x53EA;&#x80FD;&#x901A;&#x8FC7;&#x6253;tag&#x4E4B;&#x540E;&#x624D;&#x80FD;&#x8FDB;&#x884C;&#x4F7F;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x4F7F;&#x7528;&#x7B2C;&#x4E8C;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x6700;&#x597D;&#x662F;&#x6D4B;&#x8BD5;&#x597D;&#x4E4B;&#x540E;&#x6253;&#x5B8C;tag&#x518D;&#x8FDB;&#x884C;&#x5F15;&#x7528;&#x3002;</p>
+<p>&#x8FD8;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x70B9;</p>
+<ol>
+<li>&#x6A21;&#x5757;&#x4E2D;&#x4E0D;&#x80FD;&#x51FA;&#x73B0;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#xFF0C;&#x5373; A &#x4F9D;&#x8D56; B&#xFF0C;B &#x4F9D;&#x8D56; C&#xFF0C;C &#x4F9D;&#x8D56; A &#x7684;&#x60C5;&#x51B5;</li>
+<li>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x5B50;&#x6A21;&#x5757;&#x5F15;&#x7528;&#xFF0C;&#x9700;&#x8981;&#x586B;&#x5199;&#x5B8C;&#x6574;&#x7684;&#x6A21;&#x5757;&#x540D;&#xFF0C;&#x5982;&#x5728; Core &#x6A21;&#x5757;&#x4E0B;&#x9762;&#x6709; Controller &#x6A21;&#x5757;&#x4E0B;&#x9762;&#x6709;&#x4E2A; Setting &#x6A21;&#x5757;&#xFF0C;&#x5E76;&#x4E14;&#x6574;&#x4E2A;&#x5E93;&#x7684;&#x540D;&#x5B57;&#x4E3A; TestProj &#x7684;&#x8BDD;,&#x5219;&#x4F9D;&#x8D56;&#x7684;&#x540D;&#x79F0;&#x9700;&#x8981;&#x8FD9;&#x6837;&#x5199; s.dependency &apos;TestProj/Core/Controller/Setting&apos; &#x7684;&#x5F62;&#x5F0F;</li>
+<li>&#x5982;&#x679C;&#x51FA;&#x73B0;&#x6A21;&#x5757;&#x7279;&#x522B;&#x591A;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5728;&#x9A8C;&#x8BC1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7ADF;&#x7136;&#x91C7;&#x7528;--subspec=&#x5B50;&#x6A21;&#x5757;&#x540D;&#x6765;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x9A8C;&#x8BC1;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x5BF9;&#x4E8E;&#x5982;&#x679C;&#x53EA;&#x6539;&#x52A8;&#x4E86;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x8FD9;&#x91CC;&#x6240;&#x8BF4;&#x7684;&#x5B57;&#x6A21;&#x5757;&#x540D;&#x4E5F;&#x548C;&#x4E0A;&#x9762;&#x4E00;&#x70B9;&#x5F02;&#x6837;&#xFF0C;&#x8981;&#x586B;&#x5199;&#x5B8C;&#x6574;&#x7684;&#x6A21;&#x5757;&#x540D;</li>
+<li>&#x5728;&#x5199;&#x79C1;&#x6709;&#x5E93;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7ADF;&#x7136;&#x4E0D;&#x7528; prefix header &#x7684;&#x5F62;&#x5F0F;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x5206;&#x5B50;&#x6A21;&#x5757;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x5F88;&#x5BB9;&#x6613;&#x51FA;&#x73B0;&#x5FD8;&#x8BB0;&#x5F15;&#x7528; header &#x800C;&#x51FA;&#x73B0;&#x7684; Error</li>
+</ol>
+<hr>
+<p>&#x53C2;&#x8003;</p>
+<p><a href="http://www.pluto-y.com/cocoapods-contribute-for-open-source/" target="_blank">Cocoapods&#x7CFB;&#x5217;&#x6559;&#x7A0B;(&#x4E8C;)&#x2014;&#x2014;&#x5F00;&#x6E90;&#x4E3B;&#x4E49;&#x63A5;&#x73ED;&#x4EBA;</a>
+<a href="http://www.pluto-y.com/cocoapod-private-pods-and-module-manager/" target="_blank">Cocoapods&#x7CFB;&#x5217;&#x6559;&#x7A0B;(&#x4E09;)&#x2014;&#x2014;&#x79C1;&#x6709;&#x5E93;&#x7BA1;&#x7406;&#x548C;&#x6A21;&#x5757;&#x5316;&#x7BA1;&#x7406;</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Cocoapods">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../../iOS/" class="navigation navigation-next " aria-label="Next page: iOS">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"CocoaPods 私有公有库的搭建","level":"1.2.1.1","depth":3,"next":{"title":"iOS","level":"1.3","depth":1,"path":"iOS/README.md","ref":"iOS/README.md","articles":[{"title":"GCD","level":"1.3.1","depth":2,"path":"iOS/GCD/README.md","ref":"iOS/GCD/README.md","articles":[{"title":"GCD 基础使用","level":"1.3.1.1","depth":3,"path":"iOS/GCD/typelist.md","ref":"iOS/GCD/typelist.md","articles":[]}]}]},"previous":{"title":"Cocoapods","level":"1.2.1","depth":2,"path":"PackageManager/Cocoapods/README.md","ref":"PackageManager/Cocoapods/README.md","articles":[{"title":"CocoaPods 私有公有库的搭建","level":"1.2.1.1","depth":3,"path":"PackageManager/Cocoapods/podsRepoBuild.md","ref":"PackageManager/Cocoapods/podsRepoBuild.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PackageManager/Cocoapods/podsRepoBuild.md","mtime":"2016-11-08T03:13:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-08T03:29:42.136Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
